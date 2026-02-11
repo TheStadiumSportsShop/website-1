@@ -3,36 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-Powered Recommendations</title>
-    <script>
-        // Function to fetch and extract images from the given URL
-        async function fetchImages(url) {
-            try {
-                const response = await fetch(url);
-                const data = await response.json(); // Assuming the response is in JSON format
-                const images = data.images; // Adapt this as needed based on the actual data structure
-                return images;
-            } catch (error) {
-                console.error('Error fetching images:', error);
-            }
-        }
-
-        // Function to export catalog to Excel
-        function exportToExcel(data) {
-            const worksheet = XLSX.utils.json_to_sheet(data);
-            const workbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(workbook, worksheet, 'Catalog');
-            XLSX.writeFile(workbook, 'catalog.xlsx');
-        }
-
-        // Example usage
-        const catalogData = [ /* Your catalog data here */ ];
-        exportToExcel(catalogData);
-    </script>
+    <title>Shirt Store</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #searchBar { margin: 20px; padding: 10px; width: calc(100% - 40px); }
+        #shirtList { list-style-type: none; padding: 0; }
+        .shirtItem { margin: 10px 0; padding: 10px; border: 1px solid #ccc; }
+    </style>
 </head>
 <body>
-    <h1>Welcome to The Stadium Sports Shop!</h1>
-    <h2>AI-Powered Recommendations</h2>
-    <div id="recommendations"></div>
+    <h1>Welcome to The Shirt Store</h1>
+    <input type="text" id="searchBar" placeholder="Search for shirts..." onkeyup="filterShirts()">
+    <ul id="shirtList">
+        <li class="shirtItem">Red T-Shirt</li>
+        <li class="shirtItem">Blue Denim Shirt</li>
+        <li class="shirtItem">Green Polo Shirt</li>
+        <li class="shirtItem">Black Graphic Tee</li>
+    </ul>
+    <script>
+        function filterShirts() {
+            const input = document.getElementById('searchBar');
+            const filter = input.value.toLowerCase();
+            const shirtList = document.getElementById('shirtList');
+            const shirts = shirtList.getElementsByClassName('shirtItem');
+            for (let i = 0; i < shirts.length; i++) {
+                const shirt = shirts[i];
+                const textValue = shirt.textContent || shirt.innerText;
+                shirt.style.display = textValue.toLowerCase().indexOf(filter) > -1 ? '' : 'none';
+            }
+        }
+    </script>
 </body>
 </html>
